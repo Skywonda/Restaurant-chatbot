@@ -171,6 +171,11 @@ socket.on('order_list_c', (data) => {
 })
 
 socket.on('current_order', (data) => {
+  if (!data) {
+    botResponse('You haven\'t made any order yet!')
+    displayMenu()
+    return
+  }
   const main = container()
   const text = document.createElement('div')
   text.innerHTML = `<h2>Name: ${data.product.productName}</h2> <p>Price: ${data.price}<p/> <p>Status: ${data.status} </p> </br>`
