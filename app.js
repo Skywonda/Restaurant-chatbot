@@ -3,7 +3,7 @@ const { createServer } = require("http");
 const { Server } = require("socket.io");
 const sessionMiddleware = require("./middleware/sessionMiddleware");
 
-const { v4: uuidv4 } = require('uuid')
+const { v4: uuidv4 } = require("uuid");
 
 const Order = require("./model/order");
 const Product = require("./model/product");
@@ -22,19 +22,19 @@ app.get("/", async (req, res) => {
   res.sendFile(__dirname + "/public" + "/chatbot.html");
 });
 
-app.use(sessionMiddleware)
+app.use(sessionMiddleware);
 
 io.use(function (socket, next) {
   sessionMiddleware(socket.request, socket.request.res, next);
 });
 
 io.on("connection", (socket) => {
-  const session = socket.request.session
-  let userId = session.userId
+  const session = socket.request.session;
+  let userId = session.userId;
   if (!userId) {
-    userId = uuidv4()
-    session.userId = userId
-    session.save()
+    userId = uuidv4();
+    session.userId = userId;
+    session.save();
   }
   socket.emit("welcome", "welcome to sky restaurant");
 

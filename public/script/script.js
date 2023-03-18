@@ -95,6 +95,11 @@ socket.on('product_list', (data) => {
 })
 
 socket.on('order_list', (data) => {
+  if (data.length === 0) {
+    botResponse('You haven\'t made any order yet!')
+    displayMenu()
+    return
+  }
   const main = container();
   for (const item of data) {
     const text = document.createElement('div')
